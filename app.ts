@@ -62,27 +62,16 @@ async function addEmailsToMailjet(emails) {
 }
 
 // Planifier l'exécution quotidienne
-const job = new cron.CronJob('0 0 * * *', async () => {
-  console.log('Récupération des emails...');
-  
-  const emails = await fetchEmailsFromLAddition();
-  
-  if (emails.length > 0) {
-    await addEmailsToMailjet(emails);
-  } else {
-    console.log('Aucun email trouvé.');
-  }
-});
 
 
 
 
-cron.schedule("0 2 * * *", async () => {
+const job = new cron.schedule("0 2 * * *", async () => {
     console.log("Démarrage du script de synchronisation des emails...");
     const emails = await fetchEmailsFromLAddition();
     
     if (emails.length > 0) {
-        await sendEmailsToMailjet(emails);
+        await addEmailsToMailjet(emails);
     } else {
         console.log("Aucun nouvel e-mail à synchroniser.");
     }

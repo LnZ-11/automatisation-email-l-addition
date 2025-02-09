@@ -1,5 +1,5 @@
 require("dotenv").config();
-const axios = require('axios');
+import axios from "axios";
 const cron = require('cron');
 
 // Configuration API L'Addition
@@ -9,9 +9,13 @@ const headersAddition = {
 };
 
 // Configuration API Mailjet
-const apiKey = 'YOUR_MAILJET_API_KEY';
-const apiSecret = 'YOUR_MAILJET_API_SECRET';
+const apiKey = process.env.API_MAILJET_KEY!;
+const apiSecret = process.env.API_MAILJET_SECRET!;
 const urlMailjet = 'https://api.mailjet.com/v3/REST/contacts';
+
+if (!apiKey || !apiSecret) {
+  throw new Error("API Mailjet key and secret must be defined in environment variables.");
+}
 
 // Fonction pour récupérer les emails depuis L'Addition
 

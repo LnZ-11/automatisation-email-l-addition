@@ -75,7 +75,7 @@ const job = new cron.CronJob('0 0 * * *', async () => {
 });
 
 
-const cron = require("node-cron");
+
 
 cron.schedule("0 2 * * *", async () => {
     console.log("Démarrage du script de synchronisation des emails...");

@@ -77,34 +77,23 @@ async function addEmailsToMailjet(emails) {
   }
 }
 
-// Exemple d'utilisation
-
-
 
 // Planifier l'exécution quotidienne
-
-
-
-// const job = cron.schedule("0 2 * * *", async () => {
-//     console.log("Démarrage du script de synchronisation des emails...");
-//     const emails = await emailList;
-    
-//     if (emails.length > 0) {
-//         await addEmailsToMailjet(emails);
-//     } else {
-//         console.log("Aucun nouvel e-mail à synchroniser.");
-//     }
-// }, {
-//     timezone: "Europe/Paris"
-// });
-const job = async () => {
+const job = cron.schedule("0 0 * * *", async () => {
   mailjet.get('user')
   .request()
   .then(response => console.log('Connexion réussie ✅', response.body))
   .catch(err => console.error('Erreur de connexion ❌', err));
   console.log("Démarrage du script de synchronisation des emails...");
-  await addEmailsToMailjet(["lyes.lattari@gmail.com", "exemple@test.com"]);
-}
+  if (emailList.length > 0) {
+  await addEmailsToMailjet(emailList);
+  }
+  else {
+  console.log("Aucun nouvel e-mail à synchroniser.");
+  }
+  timezone: "Europe/Paris"
+});
+
 
 // Démarrer le job
-job();
+job.start();

@@ -5,7 +5,7 @@ const cron = require('cron');
 // Configuration API L'Addition
 const urlAddition = 'https://api.laddition.fr/endpoint'; // Remplace par l'URL de l'API
 const headersAddition = {
-  'Authorization': 'Bearer YOUR_ACCESS_TOKEN',
+  'Authorization': `Bearer ${process.env.L_ADDITION_API_KEY}`,
 };
 
 // Configuration API Mailjet
@@ -21,8 +21,8 @@ if (!apiKey || !apiSecret) {
 
 async function fetchEmailsFromLAddition() {
     try {
-        const response = await axios.get("https://api.laddition.com/emails", {
-            headers: { Authorization: `Bearer ${process.env.L_ADDITION_API_KEY}` }
+        const response = await axios.get(urlAddition, {
+            headers: headersAddition
         });
 
         if (response.data && Array.isArray(response.data.emails)) {

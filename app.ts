@@ -45,6 +45,8 @@ if (!apiKey || !apiSecret) {
   //     }
   // }
   
+// Emails Test à synchroniser
+
   const emailList = ["lyes.lattari@gmail.com", "lasbeurthiziri@gmail.com"]
 
 // Fonction pour ajouter les emails dans Mailjet
@@ -77,7 +79,6 @@ async function addEmailsToMailjet(emails) {
   }
 }
 
-
 // Planifier l'exécution quotidienne
 const job = cron.schedule("0 0 * * *", async () => {
   mailjet.get('user')
@@ -93,7 +94,6 @@ const job = cron.schedule("0 0 * * *", async () => {
   }
   timezone: "Europe/Paris"
 });
-
 
 // Démarrer le job
 job.start();
